@@ -47,4 +47,24 @@ router.post('/first-user/pictures', parser.single('picture'), (req, res, next) =
     })
 });
 
+router.post('/picture', [passport.authenticate("jwt", config.jwtSession), parser.single('picture')], (req, res, next) => {
+  console.log('DEBUG req.file', req.file);
+  User.findByIdAndUpdate(req.user._id, { pictureUrl: req.file.url })
+    .then(() => {
+      res.json({
+        success: true,
+        pictureUrl: req.file.url
+      })
+    })
+});
+
+router.get('/profile', [passport.authenticate("jwt", config.jwtSession), parser.single('picture')], (req, res, next) => {
+ 
+  User.findById(req.user._id, { pictureUrl: req.file.url })
+    .then(() => {
+     res.json(req.user)
+    })
+});
+
+
 module.exports = router;

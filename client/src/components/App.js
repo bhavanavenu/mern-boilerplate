@@ -9,6 +9,7 @@ import Signup from './Signup';
 import api from '../api';
 import logo from '../logo.svg';
 import './App.css';
+import profile from './Profile';
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class App extends Component {
           <Link to="/add-country">Add country</Link> 
           {!api.isLoggedIn() && <Link to="/signup">Signup</Link> }
           {!api.isLoggedIn() && <Link to="/login">Login</Link> }
+          {api.isLoggedIn() && <Link to="/profile"> Profile </Link>}
           {api.isLoggedIn() && <Link to="/" onClick={(e) => this.handleLogoutClick(e)}>Logout</Link> }
           <Link to="/secret">Secret</Link> 
         </header>
@@ -44,6 +46,7 @@ class App extends Component {
           <Route path="/signup" component={Signup} />
           <Route path="/login" component={Login} />
           <Route path="/secret" component={Secret} />
+          <Route path="/profile" component={Secret} />
           <Route render={() => <h2>404</h2>} />
         </Switch>        
       </div>

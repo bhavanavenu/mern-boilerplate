@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('./configs/cloudinary');
 
 const express = require('express');
 const path = require('path');

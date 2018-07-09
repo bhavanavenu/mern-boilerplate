@@ -32,6 +32,13 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
+
+  getProfile() {
+    return service
+      .get('/users/profile')
+      .then(res => res.data)
+      .catch(errHandler);
+  },
   
   signup(userInfo) {
     return service
@@ -79,6 +86,7 @@ export default {
   addPicture(file) {
     const formData = new FormData();
     formData.append("picture", file)
+    console.log('DEBUG formData', formData.get("picture"));
     return service
       .post('/users/first-user/pictures', formData, {
         headers: {
@@ -88,4 +96,18 @@ export default {
       .then(res => res.data)
       .catch(errHandler);
   },
+
+  editPicture(file) {
+    const formData = new FormData();
+    formData.append("picture", file)
+    return service
+      .post('/users/picture', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      })
+      .then(res => res.data)
+      .catch(errHandler);
+  },
 };
+ 
